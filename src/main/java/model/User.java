@@ -1,7 +1,8 @@
 package model;
 
 public class User {
-    private int id = 0;
+
+    private long id = 0;
     private String email;
     private String password;
     private String firstName;
@@ -14,7 +15,7 @@ public class User {
         this.lastName = lastName;
     }
 
-    public int getId() {
+    public long getId() {
         return this.id;
     }
     public String getEmail() {

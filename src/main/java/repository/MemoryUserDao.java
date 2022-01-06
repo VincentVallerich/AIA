@@ -17,18 +17,24 @@ public class MemoryUserDao implements UserDao {
         return instance;
     }
 
+
     @Override
-    public List<User> getAllUsers() {
+    public List<User> findAll() {
         return this.users;
     }
 
     @Override
-    public void addUser(User user) {
-        users.add(user);
+    public User findById(long id) {
+        return users.stream().filter(x -> x.getId()==id).findFirst().get();
     }
 
     @Override
-    public void deleteUser(User user) {
-        users.remove(user);
+    public void delete(long id) {
+        users.remove(findById(id));
+    }
+
+    @Override
+    public boolean insert(User user) {
+        return users.add(user);
     }
 }
