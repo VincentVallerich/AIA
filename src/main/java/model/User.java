@@ -1,7 +1,7 @@
 package model;
 
 public class User {
-    private int id;
+    private int id = 0;
     private String email;
     private String password;
     private String firstName;
@@ -14,6 +14,9 @@ public class User {
         this.lastName = lastName;
     }
 
+    public int getId() {
+        return this.id;
+    }
     public String getEmail() {
         return this.email;
     }
@@ -30,6 +33,9 @@ public class User {
         return this.getFirstName() + this.getLastName();
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
     public void setEmail(String email) {
         this.email = email;
     }
