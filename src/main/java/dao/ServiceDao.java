@@ -1,10 +1,9 @@
 package dao;
 
 import model.Service;
-import model.User;
 
-public interface ServiceDao {
+public interface ServiceDao extends BasicDao<Service> {
     void addService(Service service);
-
-    int getServiceCount();
+    void acceptService(long id);
+    void rejectService(long id);
 }
