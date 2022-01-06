@@ -3,11 +3,14 @@ package model;
 import dao.UserDao;
 import provider.UserDaoProvider;
 
+import java.util.Base64;
+
 public class Colocation {
 
     private String name;
     private long id;
     private long adminId;
+    private long invitationLink;
     private UserDao userDao = UserDaoProvider.getUserDao();
 
     public Colocation(){
@@ -24,6 +27,10 @@ public class Colocation {
 
     private void addUser(User user){
         userDao.insert(user);
+    }
+    private byte[] sendInvitation(long id)
+    {
+        return Base64.getEncoder().encode(String.valueOf(id).getBytes());
     }
 
     public String getName() {
