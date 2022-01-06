@@ -1,5 +1,8 @@
 package model;
 
+import dao.UserDao;
+import provider.UserDaoProvider;
+
 import java.util.Objects;
 
 public class User {
@@ -9,6 +12,7 @@ public class User {
     private String password;
     private String firstName;
     private String lastName;
+    private String token;
 
     public User(String email, String password, String firstName, String lastName) {
         this.email = email;
@@ -32,6 +36,7 @@ public class User {
     public String getLastName() {
         return this.lastName;
     }
+    public String getToken() { return this.token; }
     public String getCompleteName() {
         return this.getFirstName() + this.getLastName();
     }
@@ -51,6 +56,7 @@ public class User {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+    public void setToken(String token) { this.token = token; }
 
     @Override
     public boolean equals(Object o) {

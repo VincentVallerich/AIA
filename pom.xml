@@ -27,6 +27,11 @@
             <version>1.3.2</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.18.2</version>
+        </dependency>
 
         <!-- Servlet Spec -->
         <dependency>
