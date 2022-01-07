@@ -11,7 +11,7 @@ import javax.ws.rs.core.Response;
 @Path("/services")
 public class ServiceController {
 
-    private ServiceDao dao = ServiceDaoProvider.getServiceDao();
+    private final ServiceDao dao = ServiceDaoProvider.getServiceDao();
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -31,7 +31,7 @@ public class ServiceController {
 
     @DELETE
     @Path("/{id}")
-    public Response deleteServiceById(@PathParam("id"), long serviceId) {
+    public Response deleteServiceById(@PathParam("id") long serviceId) {
         dao.delete(serviceId);
         return Response.ok().build();
     }
