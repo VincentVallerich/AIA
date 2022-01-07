@@ -1,14 +1,20 @@
 package repository;
 
-import dao.ServiceDao;
 import dao.UserDao;
 import model.User;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class MemoryUserDao implements UserDao {
     private List<User> users;
     private static MemoryUserDao instance;
+    private long idCounter = 0;
+
+    private MemoryUserDao() {
+        this.users = new ArrayList<>();
+    }
 
     public static UserDao getInstance() {
         if (instance == null) {
@@ -17,24 +23,25 @@ public class MemoryUserDao implements UserDao {
         return instance;
     }
 
-
     @Override
     public List<User> findAll() {
         return this.users;
     }
 
     @Override
-    public User findById(long id) {
-        return users.stream().filter(x -> x.getId()==id).findFirst().get();
+    public Optional<User> findById(long id) {
+        return users.stream().filter(x -> x.getId()==id).findFirst();
     }
 
     @Override
-    public void delete(long id) {
-        users.remove(findById(id));
+    public void delete(long id)
+    {
+        findById(id).ifPresent(users::remove);
     }
 
     @Override
     public boolean insert(User user) {
+        user.setId(idCounter++);
         return users.add(user);
     }
 }
