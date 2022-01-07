@@ -5,6 +5,8 @@ import model.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class InMemoryServiceRepository implements ServiceDao {
 
@@ -22,6 +24,11 @@ public class InMemoryServiceRepository implements ServiceDao {
             instance = new InMemoryServiceRepository();
         }
         return instance;
+    }
+
+    @Override
+    public List<Service> getServicesByIds(List<Long> ids) {
+        return services.stream().filter(x -> ids.contains(x.getId())).collect(Collectors.toList());
     }
 
     @Override
@@ -47,13 +54,13 @@ public class InMemoryServiceRepository implements ServiceDao {
     }
 
     @Override
-    public Service findById(long id) {
-        return services.stream().filter(x -> x.getId() == id).findFirst().orElseGet(Service::new);
+    public Optional<Service> findById(long id) {
+        return services.stream().filter(x -> x.getId() == id).findFirst();
     }
 
     @Override
     public void delete(long id) {
-        services.stream().filter(x -> x.getId() == id).findFirst().ifPresent(services::remove);
+        findById(id).ifPresent(services::remove);
     }
 
     @Override

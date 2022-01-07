@@ -61,8 +61,9 @@ public class ServiceDaoTest {
         dao.insert(service);
         dao.insert(service2);
         assertAll(
-            () -> assertEquals(service, dao.findById(service.getId())),
-            () -> assertEquals(service2, dao.findById(service2.getId()))
+            () -> assertTrue(dao.findById(service.getId()).isPresent()),
+            () -> assertEquals(service, dao.findById(service.getId()).get()),
+            () -> assertEquals(service2, dao.findById(service2.getId()).get())
         );
     }
 }

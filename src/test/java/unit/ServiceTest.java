@@ -48,7 +48,7 @@ public class ServiceTest {
         Service service = new Service();
         dao.insert(service);
         dao.acceptService(service.getId());
-        assertEquals(State.ACCEPT, dao.findById(service.getId()).getState());
+        assertEquals(State.ACCEPT, dao.findById(service.getId()).get().getState());
     }
 
     @Test
@@ -56,6 +56,6 @@ public class ServiceTest {
         Service service = new Service("test", "desc", 1);
         dao.insert(service);
         dao.rejectService(service.getId());
-        assertEquals(State.REJECT, dao.findById(service.getId()).getState());
+        assertEquals(State.REJECT, dao.findById(service.getId()).get().getState());
     }
 }

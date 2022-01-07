@@ -40,36 +40,8 @@ public class Service {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDesctiption() {
-        return desctiption;
-    }
-
-    public void setDesctiption(String desctiption) {
-        this.desctiption = desctiption;
-    }
-
-    public int getPoints() {
-        return points;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
     public State getState() {
         return state;
-    }
-
-    public void setState(State state) {
-        this.state = state;
     }
 
     public void accept() {
@@ -78,6 +50,18 @@ public class Service {
 
     public void reject() {
         this.state = State.REJECT;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDesctiption() {
+        return desctiption;
+    }
+
+    public int getPoints() {
+        return points;
     }
 
     public long getBeneficiaryId() {
