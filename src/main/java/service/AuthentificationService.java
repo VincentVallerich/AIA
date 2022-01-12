@@ -8,13 +8,14 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import dao.UserDao;
 import model.User;
+import provider.UserDaoProvider;
 
 import java.util.List;
 
 public class AuthentificationService {
-    UserDao dao;
+    UserDao dao = UserDaoProvider.getUserDao();
     public boolean doIKnowHim(User user) {
-        List<User> users = dao.getAllUsers();
+        List<User> users = dao.findAll();
         return users.contains(user);
     }
 
