@@ -1,38 +1,43 @@
 package controllers;
 
+import dao.ColocationDao;
 import dao.ServiceDao;
 import model.Service;
+import provider.ColocationDaoProvider;
 import provider.ServiceDaoProvider;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Optional;
 
-@Path("/services")
+@Path("colocation/{colocationId}/services")
 public class ServiceController {
 
-    private final ServiceDao dao = ServiceDaoProvider.getServiceDao();
+    private final ServiceDao serviceDao = ServiceDaoProvider.getServiceDao();
+    private final ColocationDao colocationDao = ColocationDaoProvider.getColocationDao();
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getServices() {
-        return Response.ok().entity(dao.findAll()).build();
+        return Response.ok().entity(serviceDao.findAll()).build();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
-    public Response getServiceById(@PathParam("id") long serviceId) {
-        Service service = dao.findById(serviceId);
-        return !service.equals(new Service())
-                ? Response.ok().entity(service).build()
-                : Response.status(Response.Status.NOT_FOUND).build();
+    public Response getServiceById(@PathParam("colocationId") long colocationId, @PathParam("id") long serviceId) {
+        Optional<Service> service = colocationDao.getAService(colocationId, serviceId);
+        return service.isPresent()
+                ? Response.ok().entity(service.get()).build()
+                : Response.noContent().build();
     }
 
     @DELETE
     @Path("/{id}")
-    public Response deleteServiceById(@PathParam("id") long serviceId) {
-        dao.delete(serviceId);
+    public Response deleteServiceById(@PathParam("colocationId") long colocationId, @PathParam("id") long serviceId) {
+        colocationDao.deleteService(colocationId, serviceId);
+        serviceDao.delete(serviceId);
         return Response.ok().build();
     }
 }
