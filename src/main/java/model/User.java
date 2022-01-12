@@ -1,8 +1,5 @@
 package model;
 
-import dao.UserDao;
-import provider.UserDaoProvider;
-
 import java.util.Objects;
 
 public class User {
