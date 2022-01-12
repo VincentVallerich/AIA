@@ -19,7 +19,7 @@ public class Colocation {
         this.adminId=0;
         this.name="";
     }
-    public Colocation(String name, long id, long adminId) {
+    public Colocation(String name, long adminId) {
         this();
         this.name = name;
         this.adminId = adminId;
