@@ -1,5 +1,6 @@
 package controllers;
 
+import annotation.SigninNeeded;
 import dao.ColocationDao;
 import dao.ServiceDao;
 import model.Service;
@@ -11,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Optional;
 
-@Path("colocation/{colocationId}/services")
+@Path("colocation/{colocationId}/service")
 public class ServiceController {
 
     private final ServiceDao serviceDao = ServiceDaoProvider.getServiceDao();
@@ -37,7 +38,6 @@ public class ServiceController {
     @Path("/{id}")
     public Response deleteServiceById(@PathParam("colocationId") long colocationId, @PathParam("id") long serviceId) {
         colocationDao.deleteService(colocationId, serviceId);
-        serviceDao.delete(serviceId);
         return Response.ok().build();
     }
 }

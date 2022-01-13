@@ -44,4 +44,9 @@ public class MemoryUserDao implements UserDao {
         user.setId(idCounter++);
         return users.add(user);
     }
+
+    @Override
+    public boolean verifyToken(String token) {
+        return true;
+    }
 }

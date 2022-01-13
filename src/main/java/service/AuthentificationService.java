@@ -13,10 +13,9 @@ import provider.UserDaoProvider;
 import java.util.List;
 
 public class AuthentificationService {
-    UserDao dao = UserDaoProvider.getUserDao();
+
     public boolean doIKnowHim(User user) {
-        List<User> users = dao.findAll();
-        return users.contains(user);
+        return UserDaoProvider.getUserDao().findById(user.getId()).isPresent();
     }
 
     public String giveAToken(User user) {
@@ -35,16 +34,8 @@ public class AuthentificationService {
         return null;
     }
 
-    public boolean verifyAToken(String token) {
-        try {
-            Algorithm algorithm = Algorithm.HMAC256("secret");
-            JWTVerifier verifier = JWT.require(algorithm)
-                    .withIssuer("auth0")
-                    .build(); //Reusable verifier instance
-            DecodedJWT jwt = verifier.verify(token);
-            return true;
-        } catch (JWTVerificationException exception){
-            return false;
-        }
+    public static boolean verifyAToken(String token) {
+        UserDao userDao = UserDaoProvider.getUserDao();
+        return userDao.verifyToken(token);
     }
 }
