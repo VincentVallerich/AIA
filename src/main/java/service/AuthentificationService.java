@@ -25,6 +25,7 @@ public class AuthentificationService {
                 String token = JWT.create()
                         .withIssuer("auth0")
                         .sign(algorithm);
+                user.setToken(token);
                 return token;
             } catch (JWTCreationException exception){
                 //Invalid Signing configuration / Couldn't convert Claims.

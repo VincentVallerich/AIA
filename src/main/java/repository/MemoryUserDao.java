@@ -47,6 +47,11 @@ public class MemoryUserDao implements UserDao {
 
     @Override
     public boolean verifyToken(String token) {
-        return true;
+        for (int i = 0; i < users.size(); i ++) {
+            if (users.get(i).getToken()==token) {
+                return true;
+            }
+        }
+        return false;
     }
 }
