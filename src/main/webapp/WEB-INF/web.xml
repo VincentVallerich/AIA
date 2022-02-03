@@ -6,31 +6,13 @@
         <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
         <init-param>
             <param-name>jersey.config.server.provider.packages</param-name>
-            <param-value>controllers;annotation</param-value>
+            <param-value>controllers;annotation;io.swagger.jaxrs.listing</param-value>
         </init-param>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>ShareLocApi</servlet-name>
         <url-pattern>/*</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>jersey</servlet-name>
-        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
-        <init-param>
-            <param-name>jersey.config.server.provider.packages</param-name>
-            <param-value>
-                io.swagger.jaxrs.listing,
-                {your.application.packages}
-            </param-value>
-        </init-param>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>jersey</servlet-name>
-        <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -42,7 +24,7 @@
         </init-param>
         <init-param>
             <param-name>swagger.api.basepath</param-name>
-            <param-value>http://localhost:8080/api/swagger</param-value>
+            <param-value>http://localhost:8080</param-value>
         </init-param>
         <load-on-startup>2</load-on-startup>
     </servlet>
