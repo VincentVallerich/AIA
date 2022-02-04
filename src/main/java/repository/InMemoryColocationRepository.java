@@ -2,6 +2,7 @@ package repository;
 
 import dao.ColocationDao;
 import dao.ServiceDao;
+import dao.UserDao;
 import model.Colocation;
 import model.Service;
 import model.User;
@@ -17,6 +18,7 @@ public class InMemoryColocationRepository implements ColocationDao {
     private final Map<Long, List<Long>> colocationUsersAssociations;
     private long idCount = 0;
     private final ServiceDao serviceDao = ServiceDaoProvider.getServiceDao();
+    private final UserDao userDao = UserDaoProvider.getUserDao();
 
     private InMemoryColocationRepository()
     {
@@ -97,6 +99,14 @@ public class InMemoryColocationRepository implements ColocationDao {
         List<Long> servicesId = colocationsServicesAssociations.get(colocationId);
         servicesId.add(service.getId());
         colocationsServicesAssociations.put(colocationId, servicesId);
+    }
+
+    @Override
+    public void addUsers(long id, User user) {
+        userDao.insert(user);
+        List<Long> usersId = colocationUsersAssociations.get(id);
+        usersId.add(user.getId());
+        colocationUsersAssociations.put(id, usersId);
     }
 
     @Override
