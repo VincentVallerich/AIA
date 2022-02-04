@@ -33,12 +33,6 @@
             <version>3.18.2</version>
         </dependency>
 
-        <dependency>
-            <groupId>io.swagger</groupId>
-            <artifactId>swagger-jersey2-jaxrs</artifactId>
-            <version>1.6.4</version>
-        </dependency>
-
         <!-- Servlet Spec -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -78,7 +72,7 @@
             <version>5.8.1</version>
         </dependency>
     </dependencies>
-    
+
     <build>
         <finalName>${project.name}</finalName>
         <plugins>
