@@ -3,17 +3,17 @@ package repository;
 import dao.UserDao;
 import model.User;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class MemoryUserDao implements UserDao {
     private List<User> users;
     private static MemoryUserDao instance;
     private long idCounter = 0;
+    private final Map<Long,String> userTokenAssociations;
 
     private MemoryUserDao() {
         this.users = new ArrayList<>();
+        this.userTokenAssociations= new HashMap<>();
     }
 
     public static UserDao getInstance() {
@@ -31,6 +31,16 @@ public class MemoryUserDao implements UserDao {
     @Override
     public Optional<User> findById(long id) {
         return users.stream().filter(x -> x.getId()==id).findFirst();
+    }
+
+    @Override
+    public Optional<User> findByMail(String mail) {
+        return users.stream().filter(x -> x.getEmail().equals(mail)).findFirst();
+    }
+
+    @Override
+    public boolean findAuthy(String username, String password) {
+        return users.stream().anyMatch(x -> x.getEmail().equals("") && x.getPassword().equals(""));
     }
 
     @Override
@@ -53,5 +63,10 @@ public class MemoryUserDao implements UserDao {
             }
         }
         return false;
+    }
+
+    @Override
+    public void addToken(long userId, String token) {
+        userTokenAssociations.put(userId, token);
     }
 }

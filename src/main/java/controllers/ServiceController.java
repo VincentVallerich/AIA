@@ -24,9 +24,9 @@ public class ServiceController {
         return Response.ok().entity(serviceDao.findAll()).build();
     }
 
-    @GET
+    @POST
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/{id}")
+    @Path("/{serviceId}/{userId}")
     public Response getServiceById(@PathParam("colocationId") long colocationId, @PathParam("id") long serviceId) {
         Optional<Service> service = colocationDao.getAService(colocationId, serviceId);
         return service.isPresent()
@@ -35,8 +35,8 @@ public class ServiceController {
     }
 
     @DELETE
-    @Path("/{id}")
-    public Response deleteServiceById(@PathParam("colocationId") long colocationId, @PathParam("id") long serviceId) {
+    @Path("/{serviceId}/userId")
+    public Response deleteServiceById(@PathParam("colocationId") long colocationId, @PathParam("serviceId") long serviceId) {
         colocationDao.deleteService(colocationId, serviceId);
         return Response.ok().build();
     }

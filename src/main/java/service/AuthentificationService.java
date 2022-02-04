@@ -14,18 +14,18 @@ import java.util.List;
 
 public class AuthentificationService {
 
-    public boolean doIKnowHim(User user) {
+    public static boolean doIKnowHim(User user) {
         return UserDaoProvider.getUserDao().findById(user.getId()).isPresent();
     }
 
-    public String giveAToken(User user) {
+    public static String giveAToken(User user) {
         if (doIKnowHim(user)) {
             try {
                 Algorithm algorithm = Algorithm.HMAC256("secret");
                 String token = JWT.create()
                         .withIssuer("auth0")
                         .sign(algorithm);
-                user.setToken(token);
+                UserDaoProvider.getUserDao().addToken(user.getId(), token);
                 return token;
             } catch (JWTCreationException exception){
                 //Invalid Signing configuration / Couldn't convert Claims.

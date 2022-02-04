@@ -4,7 +4,9 @@ import dao.ColocationDao;
 import dao.ServiceDao;
 import model.Colocation;
 import model.Service;
+import model.User;
 import provider.ServiceDaoProvider;
+import provider.UserDaoProvider;
 
 import java.util.*;
 
@@ -12,6 +14,7 @@ public class InMemoryColocationRepository implements ColocationDao {
     private static InMemoryColocationRepository instance;
     private final List<Colocation> colocations;
     private final Map<Long, List<Long>> colocationsServicesAssociations;
+    private final Map<Long, List<Long>> colocationUsersAssociations;
     private long idCount = 0;
     private final ServiceDao serviceDao = ServiceDaoProvider.getServiceDao();
 
@@ -19,6 +22,7 @@ public class InMemoryColocationRepository implements ColocationDao {
     {
         this.colocations = new ArrayList<>();
         this.colocationsServicesAssociations = new HashMap<>();
+        this.colocationUsersAssociations= new HashMap<>();
     }
 
     public static InMemoryColocationRepository getInstance() {
@@ -42,6 +46,32 @@ public class InMemoryColocationRepository implements ColocationDao {
     @Override
     public void delete(long id) {
         findById(id).ifPresent(colocations::remove);
+    }
+
+    @Override
+    public long getAdminId(long colocationId) {
+        Optional<Colocation> colocation = findById(colocationId);
+        if(colocation.isPresent())
+        {
+
+            return colocation.get().getAdminId();
+        }
+        return 0;
+    }
+
+    @Override
+    public List<User> getUsers(long colocationId) {
+        Optional<Colocation> colocation = findById(colocationId);
+        if(colocation.isPresent())
+        {
+            List<User> users = new ArrayList<>(colocationUsersAssociations.size());
+            for (long id : colocationUsersAssociations.get(colocationId)) {
+                users.add(userDao.findById(id).get());
+            }
+
+            return users;
+        }
+        return List.of();
     }
 
     @Override

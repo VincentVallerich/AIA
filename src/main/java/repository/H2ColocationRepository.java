@@ -4,6 +4,7 @@ import dao.ColocationDao;
 import dao.ServiceDao;
 import model.Colocation;
 import model.Service;
+import model.User;
 import provider.ServiceDaoProvider;
 
 import java.util.*;
@@ -16,6 +17,7 @@ public class H2ColocationRepository implements ColocationDao {
         return null;
     }
 
+
     @Override
     public Optional<Colocation> findById(long id) {
         // Select * from colocation where colocation.id = id
@@ -25,6 +27,16 @@ public class H2ColocationRepository implements ColocationDao {
     @Override
     public void delete(long id) {
         // delete from colocation where colocation.id = id
+    }
+
+    @Override
+    public long getAdminId(long colocationId) {
+        return 0;
+    }
+
+    @Override
+    public List<User> getUsers(long colocationId) {
+        return null;
     }
 
     @Override
@@ -52,6 +64,11 @@ public class H2ColocationRepository implements ColocationDao {
 
     @Override
     public void addService(long id, Service service) {
+
+    }
+
+    @Override
+    public void addUsers(long id, User user) {
 
     }
 }
